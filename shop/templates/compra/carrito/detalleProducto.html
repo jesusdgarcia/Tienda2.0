@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <h2>{% trans "Detalle" %}</h2>
+    <table class="table table-striped">
+        <thead>
+            <td>{% trans "Marca" %}</td>
+            <td>{% trans "Nombre" %}</td>
+            <td>{% trans "Modelo" %}</td>
+            <td>{% trans "Precio" %}</td>
+            <td>{% trans "Unidades" %}</td>
+            <td>{% trans "Vip" %}</td>
+        </thead>
+            <tr>
+                <td>{{ producto.marca }}</td>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.modelo}}</td>
+                <td>{{ producto.precio }}</td>
+                <td>{{ producto.unidad }}</td>
+                <td>{{ producto.vip }}</td>
+            </tr>
+    </table>
+    <form method="post" action="{% url 'aniadirProductoCompraCarrito' pk=producto.pk %}">
+        {% csrf_token %}
+        <td><label for="{{ form.cantidad.id_for_label }}">
+                {% trans "Cantidad" %}:
+            </label>
+            {{ form.cantidad }}
+        </td>
+        <input type="submit" class="btn btn-outline-success" value={% trans "Confirmar" %} />
+    </form>
+{% endblock %}

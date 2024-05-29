@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+      <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">{% trans "¡Compra finalizada con éxito!" %}</h1>
+                        <p class="card-text">{% trans "¡Gracias por su compra! Su pedido ha sido procesado satisfactoriamente." %}</p>
+                        <p class="card-text">{% trans "Puede seguir comprando " %}<a href="{% url 'welcome' %}" class="card-link">{% trans "aquí" %}aquí</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+     <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ producto.img }}" class="card-img-top" style="object-fit: contain; max-height: 500px;" alt="{{ producto.nombre }}">
+            </div>
+            <div class="col-md-6">
+                <h1>{{ producto.nombre }} {{ producto.modelo }}</h1>
+                <p>{% trans "Precio" %}: {{ producto.precio }}</p>
+                <p>{% trans "Descripcion" %}: {{ producto.descripcion }}</p>
+                <p>{% trans "Unidades" %}: {{ producto.unidad }}</p>
+                <p>{% trans "Vip" %}: {{ producto.vip }}</p>
+                <a href="{% url 'detalleProductoCompraCarrito' pk=producto.pk %}"><button class="btn btn-light">{% trans "Añadir al carrito" %}</button></a>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <h1>{% trans "Comentarios" %}</h1>
+        <div class="row">
+            {% for comentario in comentarios %}
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ comentario.cliente.user.username }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ comentario.producto.nombre }}</h6>
+                        <p class="card-text">{{ comentario.descripcion }}</p>
+                        <p class="card-text">Puntuación: {{ comentario.puntuacion }}</p>
+                        <p class="card-text"><small class="text-muted">{{ comentario.fecha_creacion }}</small></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

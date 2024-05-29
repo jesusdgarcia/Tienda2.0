@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <h2>{% trans "Compra realizada el " %} {{ compra.fecha }} {% trans ", con un importe de " %} {{ compra.importe }}</h2>
+    <p>{% trans "Direccion de envio: " %} {{ compra.direccion_envio }}</p>
+    <p>{% trans "Direccion de envio: " %} {{ compra.direccion_facturacion }}</p>
+    <p>{% trans "Tarjeta usada: " %} {{ compra.tarjeta }}</p>
+    <table class="table table-striped">
+        <thead>
+            <td>{% trans "Producto" %}</td>
+            <td>{% trans "Cantidad" %}</td>
+            <td>{% trans "Precio Unitario" %}</td>
+            <td>{% trans "IVA" %}</td>
+            <td>{% trans "Subtotal sin IVA" %}</td>
+            <td>{% trans "Subtotal con IVA" %}</td>
+            <td></td>
+        </thead>
+        {% for item in items %}
+            <tr>
+                <td>{{ item.producto.marca }} {{ item.producto.nombre }} {{ item.producto.modelo }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>{{ item.producto.precio }}</td>
+                <td>21%</td>
+                <td>{{ item.subtotal }}</td>
+                <td>{{ item.subtotalconiva }}</td>
+                <td><td><a href="{% url 'valorarProducto' pk=item.producto.pk %}">
+                            <button class="btn btn-light">{% trans "Valorar" %}</button>
+                        </a></td></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

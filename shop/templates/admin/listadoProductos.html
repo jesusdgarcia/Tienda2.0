@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+	<h2>Listado de productos</h2>
+    {% if user.is_staff or user.is_superuser %}
+        <a href="{% url 'nuevoProducto' %}"><button class="btn btn-primary">Nuevo</button></a>
+    {% endif %}
+    <table class="table table-striped">
+        <thead>
+            <td>Marca</td>
+            <td>Nombre</td>
+            <td>Modelo</td>
+            <td>Precio</td>
+            <td>Unidades</td>
+            <td>Vip</td>
+            <td></td>
+            <td></td>
+        </thead>
+        {% for producto in object_list %}
+            <tr>
+                <td>{{ producto.marca }}</td>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.modelo}}</td>
+                <td>{{ producto.precio }}</td>
+                <td>{{ producto.unidad }}</td>
+                <td>{{ producto.vip }}</td>
+                <td><a href="{% url 'detalleProducto' pk=producto.pk %}"><button class="btn btn-info">Detalle</button></a></td>
+                {% if user.is_staff or user.is_superuser %}
+                    <td><a href="{% url 'eliminarProducto' pk=producto.pk %}"><button class="btn btn-warning">Eliminar</button></a></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

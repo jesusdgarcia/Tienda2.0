@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+	<h2>Listado de productos por marca</h2>
+    <form method="get">
+        <td>{{ form.as_p }}</td>
+        <td><input type="submit" class="btn btn-light" value="Filtrar" /></td>
+    </form>
+	<table class="table table-striped">
+        <thead>
+            <td>Nombre</td>
+            <td>Modelo</td>
+            <td>Precio</td>
+            <td>Unidades</td>
+            <td>Vip</td>
+        </thead>
+        {% for producto in productos %}
+            <tr>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.modelo}}</td>
+                <td>{{ producto.precio }}</td>
+                <td>{{ producto.unidad }}</td>
+                <td>{{ producto.vip }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <h2>Detalles</h2>
+    <table class="table table-striped">
+        <thead>
+            <td>Marca</td>
+            <td>Nombre</td>
+            <td>Modelo</td>
+            <td>Precio</td>
+            <td>Unidades</td>
+            <td>Vip</td>
+        </thead>
+            <tr>
+                <td>{{ producto.marca }}</td>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.modelo}}</td>
+                <td>{{ producto.precio }}</td>
+                <td>{{ producto.unidad }}</td>
+                <td>{{ producto.vip }}</td>
+            </tr>
+    </table>
+    {% if user.is_staff or user.is_superuser %}
+        <a href="{% url 'editarProducto' pk=object.pk %}"><button class="btn btn-warning">Editar</button></a>
+        <a href="{% url 'eliminarProducto' pk=object.pk %}"><button class="btn btn-danger">Eliminar</button></a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+	<h2>Informes</h2>
+	<ul>
+        <li class="list-group-item"><a href="{% url 'productosMarca' %}">Productos por marca.</a></li>
+		<li class="list-group-item"><a href="{% url 'topTenVendidos' %}">Top ten productos vendidos.</a></li>
+		<li class="list-group-item"><a href="{% url 'comprasCliente' %}">Compras de un usuario con acceso al detalle de cada compra.</a></li>
+        <li class="list-group-item"><a href="{% url 'topTenClientes' %}">Top ten mejores clientes.</a></li>
+	</ul>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <h2>{% trans "Perfil de Usuario" %}</h2>
+            <table class="table table-striped">
+                <thead>
+                <td>{% trans "Nombre" %}</td>
+                <td>{% trans "Apellido" %}</td>
+                <td>{% trans "Email" %}</td>
+                <td>{% trans "Saldo" %}</td>
+                <td>{% trans "Vip" %}</td>
+                </thead>
+                <tr>
+                    <td>{{ cliente.user.first_name }}</td>
+                    <td>{{ cliente.user.last_name }}</td>
+                    <td>{{ cliente.user.email }}</td>
+                    <td>{{ cliente.saldo }}</td>
+                    <td>{{ cliente.vip }}</td>
+                </tr>
+            </table>
+            <a href="{% url 'profileEdit' %}">
+                <button class="btn btn-light">{% trans "Editar" %}</button>
+            </a>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 12px">
+        <div class="col-md-6">
+            <h3>{% trans "Direcciones" %}</h3>
+            <table class="table table-striped">
+                <thead>
+                <td>{% trans "Nombre" %}</td>
+                <td>{% trans "Direccion" %}</td>
+                <td>{% trans "Direccion A." %}</td>
+                <td>{% trans "Ciudad" %}</td>
+                <td>{% trans "Provincia" %}</td>
+                <td>{% trans "C. P." %}</td>
+                <td></td>
+                <td></td>
+                </thead>
+                {% for direccion in cliente.direcciones.all %}
+                    <tr>
+                        <td>{{ direccion.name }}</td>
+                        <td>{{ direccion.address_one }}</td>
+                        <td>{{ direccion.address_two }}</td>
+                        <td>{{ direccion.city }}</td>
+                        <td>{{ direccion.province }}</td>
+                        <td>{{ direccion.postal_code }}</td>
+                        <td><a href="{% url 'editarDireccion' pk=direccion.pk %}">
+                            <button class="btn btn-light">{% trans "Editar" %}</button>
+                        </a></td>
+                        <td><a href="{% url 'eliminarDireccion' pk=direccion.pk %}">
+                            <button class="btn btn-outline-danger">{% trans "Borrar" %}</button>
+                        </a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <a href="{% url 'nuevaDireccion' %}">
+                <button class="btn btn-light">{% trans "Nueva Direccion" %}</button>
+            </a>
+        </div>
+        <div class="col-md-6">
+            <h3>{% trans "Tarjetas" %}</h3>
+            <table class="table table-striped">
+                <thead>
+                <td>{% trans "Tipo" %}</td>
+                <td>{% trans "Titular" %}</td>
+                <td>{% trans "Numero" %}</td>
+                <td>{% trans "Mes Caducidad" %}</td>
+                <td>{% trans "Año Caducidad" %}</td>
+                <td>{% trans "CVV" %}</td>
+                </thead>
+                {% for tarjeta in cliente.tarjetas.all %}
+                    <tr>
+                        <td>{{ tarjeta.tipo }}</td>
+                        <td>{{ tarjeta.titular }}</td>
+                        <td>{{ tarjeta.numero }}</td>
+                        <td>{{ tarjeta.mes_caducidad }}</td>
+                        <td>{{ tarjeta.anio_caducidad }}</td>
+                        <td>{{ tarjeta.codigo_seguridad }}</td>
+                        <td><a href="{% url 'editarTarjeta' pk=tarjeta.pk %}">
+                            <button class="btn btn-light">{% trans "Editar" %}</button>
+                        </a></td>
+                        <td><a href="{% url 'eliminarTarjeta' pk=tarjeta.pk %}">
+                            <button class="btn btn-outline-danger">{% trans "Borrar" %}</button>
+                        </a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <a href="{% url 'nuevaTarjeta' %}">
+                <button class="btn btn-light">{% trans "Nueva Tarjeta" %}</button>
+            </a>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 12px">
+        <div class="col">
+            <h3>{% trans "Compras realizadas" %}</h3>
+            <table class="table table-striped">
+                <thead>
+                <td>{% trans "Fecha" %}</td>
+                <td>{% trans "Unidades" %}</td>
+                <td>{% trans "Importe" %}</td>
+                <td></td>
+                </thead>
+                {% for compra in compras %}
+                    <tr>
+                        <td>{{ compra.fecha }}</td>
+                        <td>{{ compra.unidades }}</td>
+                        <td>{{ compra.importe }}</td>
+                        <td><a href="{% url 'detalleCompra' pk=compra.pk %}">
+                            <button class="btn btn-light">{% trans "Detalles" %}</button>
+                        </a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}

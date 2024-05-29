@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+	<h2>Top 10 productos vendidos</h2>
+    <table class="table table-striped">
+        <thead>
+            <td>Nombre</td>
+            <td>Modelo</td>
+            <td>Venta Total</td>
+            <td>Importe Total</td>
+        </thead>
+        {% for producto in object_list %}
+            <tr>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.modelo}}</td>
+                <td>{{ producto.sumVentas }}</td>
+                <td>{{ producto.sumImportes }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

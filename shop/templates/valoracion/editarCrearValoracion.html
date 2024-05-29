@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="comentarios" class="form-label">Comentarios</label>
+        {{ form.descripcion}}
+    </div>
+    <div class="mb-3">
+        <label for="puntuacion" class="form-label">Puntuación</label>
+        {{ form.puntuacion}}
+    </div>
+    <input type="submit" class="btn btn-outline-success" value="Subir" />
+</form>
+{% endblock %}

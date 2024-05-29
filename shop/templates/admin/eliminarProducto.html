@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <h2>Eliminar</h2>
+    <p>¿Deseas eliminar el {{ object.marca }} {{ object.nombre }} {{ object.modelo}}?</p>
+    <table>
+        <tr>
+            <td>
+                 <form method="post" action="{% url 'eliminarProducto' pk=object.pk %}">
+                    {% csrf_token %}
+                    <input class="btn btn-danger" type="submit" value="Si">
+                </form>
+            </td>
+            <td>
+                <form method="get" action="{% url 'listaProductos' %}">
+                    <input class="btn btn-warning" type="submit" value="No">
+                </form>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

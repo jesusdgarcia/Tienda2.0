@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+	<h3>{% trans "Filtro" %}</h3>
+    <form method="get" style="padding: 0px;">
+        <div class="container" style="margin: 0px">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="{{ form.nombre.id_for_label }}">
+                        {% trans "Nombre" %}:
+                    </label>
+                    <br/>
+                    {{ form.nombre }}
+                    {{ form.nombre.errors }}
+                </div>
+                <div class="col-md-6">
+                    <label for="{{ form.marca.id_for_label }}">
+                        {% trans "Marca" %}:
+                    </label>
+                    {{ form.marca }}
+                    {{ form.marca.errors }}
+                </div>
+            </div>
+            <div class="row justify-content-start" style="margin-top: 5px !important;">
+                <div class="col-md-6">
+                    <input type="submit" class="btn btn-light" value={% trans "Filtrar" %}>
+                </div>
+            </div>
+        </div>
+    </form>
+    <p>{{ productos|length }} {% trans "artículos" %}</p>
+    <div class="container mt-5" style="margin-top: 0px !important;">
+        <div class="row">
+        {% for producto in productos %}
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <a href="{% url 'detalleProducto' pk=producto.pk %}"><img src="{{ producto.img }}" class="card-img-top" style="object-fit: contain; max-height: 280px; margin: 5px;" alt="{{ producto.nombre }}"></a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.marca }}</h5>
+                        <p class="card-text">{{ producto.nombre }} {{ producto.modelo }}</p>
+                        <p class="card-text">{% trans "Precio" %} {{ producto.precio }} {% trans "€" %}</p>
+                        <a href="{% url 'detalleProductoCompraCarrito' pk=producto.pk %}"><button class="btn btn-light">{% trans "Añadir al carrito" %}</button></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

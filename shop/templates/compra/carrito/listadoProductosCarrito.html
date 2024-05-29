@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+	<h2>{% trans "Carrito de " %} {{ user.username }}</h2>
+	<table class="table table-striped">
+        <thead>
+            <td>{% trans "Nombre" %}</td>
+            <td>{% trans "Precio Unitario" %}</td>
+            <td>{% trans "Cantidad" %}</td>
+            <td></td>
+            <td></td>
+        </thead>
+        {% for item in itemsCarrito %}
+            <tr>
+                <td>{{ item.producto.nombre }}</td>
+                <td>{{ item.producto.precio}}</td>
+                <form method="post" action="{% url 'actualizarItemCarrito' pk=item.producto.pk %}">
+                    {% csrf_token %}
+                    <td><input type="number" name="cantidad" value="{{ item.cantidad }}" /></td>
+                    <td><input type="submit" class="btn btn-outline-success" value={% trans "Actualizar" %} /></td>
+                </form>
+                <td><a href="{% url 'borrarItemCarrito' pk=item.producto.pk %}"><button class="btn btn-outline-danger">{% trans "Borrar" %}</button></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% if itemsCarrito|length > 0 %}
+        <a href="{% url 'comprarItemsConfirmacion' %}"><button class="btn btn-light">{% trans "Comprar" %}</button></a>
+    {% endif %}
+
+
+{% endblock %}

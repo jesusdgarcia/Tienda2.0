@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <div class="container mt-5" style="margin-top: 0px !important;">
+        <div class="row">
+            <div class="col-md-7">
+                <h2>{% trans "Detalle Compra" %}</h2>
+                <table class="table table-striped">
+                    <thead>
+                    <td>{% trans "Producto" %}</td>
+                    <td>{% trans "Cantidad" %}</td>
+                    <td>{% trans "Precio Unitario" %}</td>
+                    <td>{% trans "IVA" %}</td>
+                    <td>{% trans "Subtotal sin IVA" %}</td>
+                    <td>{% trans "Subtotal con IVA" %}</td>
+                    </thead>
+                    {% for item in itemsCarrito %}
+                        <tr>
+                            <td>{{ item.producto.marca }} {{ item.producto.nombre }} {{ item.producto.modelo }}</td>
+                            <td>{{ item.cantidad }}</td>
+                            <td>{{ item.producto.precio }}</td>
+                            <td>21%</td>
+                            <td>{{ item.subtotal }}</td>
+                            <td>{{ item.subtotalconiva }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="col-md-4">
+                <h2>{% trans "Importe total con IVA" %}: {{ total }} {% trans "€" %}</h2>
+                <form method="post" action="{% url 'comprarItemsCheckout' %}">
+                    {% csrf_token %}
+                    <div class="col-md-4">
+                        <label for="{{ form.direccion_envio.id_for_label }}">
+                            {% trans "Direccion de envio" %}:
+                        </label>
+                        <br/>
+                        {{ form.direccion_envio }}
+                    </div>
+                    <div class="col-md-4">
+                        <label for="{{ form.direccion_facturacion.id_for_label }}">
+                            {% trans "Direccion de facturacion" %}:
+                        </label>
+                        {{ form.direccion_facturacion }}
+                    </div>
+                    <div class="col-md-4">
+                        <label for="{{ form.tarjeta.id_for_label }}">
+                            {% trans "Tarjeta" %}:
+                        </label>
+                        {{ form.tarjeta }}
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <input class="btn btn-outline-danger" type="submit" style="width: 75%;" value={% trans "Si" %}>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-warning" href="{% url 'welcome' %}" style="width: 75%;">{% trans "No" %}</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

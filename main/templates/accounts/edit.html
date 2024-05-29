@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <h2>{% trans "Editar Perfil" %}</h2>
+	<form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="{{ form.username.id_for_label }}">
+                {% trans "Username" %}:
+            </label>
+            {{ form.username }}
+            {{ form.username.errors }}
+        </p>
+        <p>
+            <label for="{{ form.first_name.id_for_label }}">
+                {% trans "Nombre" %}:
+            </label>
+            {{ form.first_name }}
+            {{ form.first_name.errors }}
+        </p>
+        <p>
+            <label for="{{ form.last_name.id_for_label }}">
+                {% trans "Apellidos" %}:
+            </label>
+            {{ form.last_name }}
+            {{ form.last_name.errors }}
+        </p>
+        <p>
+            <label for="{{ form.email.id_for_label }}">
+                {% trans "Correo electrónico" %}:
+            </label>
+            {{ form.email }}
+            {{ form.email.errors }}
+        </p>
+
+        <input type="submit" class="btn btn-light" value={% trans "Actualizar" %}>
+    </form>
+{% endblock %}

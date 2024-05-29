@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+	<h2>Listado de compras de clientes</h2>
+    <form method="get">
+        <td>{{ form.as_p }}</td>
+        <td><input type="submit" class="btn btn-light" value="Filtrar" /></td>
+    </form>
+	<table class="table table-striped">
+        <thead>
+            <td>Fecha</td>
+            <td>Marca</td>
+            <td>Nombre</td>
+            <td>Modelo</td>
+            <td>Unidades</td>
+            <td>Importe</td>
+        </thead>
+        {% for compra in compras %}
+            <tr>
+                <td>{{ compra.fecha }}</td>
+                <td>{{ compra.producto.marca }}</td>
+                <td>{{ compra.producto.nombre }}</td>
+                <td>{{ compra.producto.modelo}}</td>
+                <td>{{ compra.unidades }}</td>
+                <td>{{ compra.importe }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
